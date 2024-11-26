@@ -36,7 +36,7 @@ if "barang_list" not in st.session_state:
 # Fungsi untuk menambah barang
 def tambah_barang():
     nama = st.text_input("Masukkan nama barang")
-    harga = st.number_input("Masukkan harga barang", min_value=0.01)
+    harga = st.number_input("Masukkan harga barang", min_value=0)
     stok = st.number_input("Masukkan jumlah stok barang", min_value=0)
 
     if st.button("Tambah Barang"):
