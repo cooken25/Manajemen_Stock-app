@@ -1,7 +1,5 @@
 import streamlit as st
 
-import streamlit as st
-
 # Kelas Barang untuk menyimpan informasi barang
 class Barang:
     def __init__(self, nama, harga, stok):
@@ -31,8 +29,9 @@ class Barang:
     def __str__(self):
         return f"{self.nama} - Harga: {self.harga} - Stok: {self.stok}"
 
-# Menyimpan barang yang ada di stok
-barang_list = []
+# Inisialisasi session state untuk menyimpan data barang
+if "barang_list" not in st.session_state:
+    st.session_state.barang_list = []
 
 # Fungsi untuk menambah barang
 def tambah_barang():
@@ -43,34 +42,39 @@ def tambah_barang():
     if st.button("Tambah Barang"):
         if nama and harga > 0 and stok >= 0:
             barang = Barang(nama, harga, stok)
-            barang_list.append(barang)
+            st.session_state.barang_list.append(barang)
             st.success(f"Barang {nama} berhasil ditambahkan.")
+            # Menampilkan daftar barang setelah ditambahkan
+            lihat_stok()
         else:
             st.error("Pastikan semua input valid!")
 
 # Fungsi untuk mengurangi stok barang
 def kurangi_stok():
-    nama = st.text_input("Masukkan nama barang yang akan dikurangi stoknya")
-    jumlah = st.number_input("Masukkan jumlah yang akan dikurangi", min_value=1)
+    if st.session_state.barang_list:  # Pastikan ada barang dalam stok
+        nama = st.selectbox("Pilih nama barang yang akan dikurangi stoknya", [barang.nama for barang in st.session_state.barang_list])
+        jumlah = st.number_input("Masukkan jumlah yang akan dikurangi", min_value=1)
 
-    if st.button("Kurangi Stok"):
-        ditemukan = False
-        for barang in barang_list:
-            if barang.nama == nama:
-                result = barang.kurangi_stok(jumlah)
-                st.success(result)
-                ditemukan = True
-                break
-        if not ditemukan:
-            st.error(f"Barang {nama} tidak ditemukan.")
+        if st.button("Kurangi Stok"):
+            ditemukan = False
+            for barang in st.session_state.barang_list:
+                if barang.nama == nama:
+                    result = barang.kurangi_stok(jumlah)
+                    st.success(result)
+                    ditemukan = True
+                    break
+            if not ditemukan:
+                st.error(f"Barang {nama} tidak ditemukan.")
+    else:
+        st.warning("Tidak ada barang di dalam stok.")
 
 # Fungsi untuk menampilkan daftar barang
 def lihat_stok():
-    if not barang_list:
+    if not st.session_state.barang_list:
         st.warning("Tidak ada barang di dalam stok.")
     else:
         st.write("Daftar Stok Barang:")
-        for barang in barang_list:
+        for barang in st.session_state.barang_list:
             st.write(barang)
 
 # Layout aplikasi Streamlit
