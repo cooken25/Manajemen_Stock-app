@@ -29,11 +29,11 @@ class Barang:
     def __str__(self):
         return f"{self.nama} - Harga: {self.harga} - Stok: {self.stok}"
 
-# Inisialisasi session state untuk menyimpan data barang
+# jika barang list belum ada di session_state maka session_state nilai awalnya kosong atau tidak ada stok
 if "barang_list" not in st.session_state:
     st.session_state.barang_list = []
 
-# Fungsi untuk menambah barang
+# menambah barang
 def tambah_barang():
     nama = st.text_input("Masukkan nama barang")
     harga = st.number_input("Masukkan harga barang", min_value=0)
@@ -44,13 +44,13 @@ def tambah_barang():
             barang = Barang(nama, harga, stok)
             st.session_state.barang_list.append(barang)
             st.success(f"Barang {nama} berhasil ditambahkan.")
-            # Menampilkan daftar barang setelah ditambahkan
-            lihat_stok()
+            
+            lihat_stok() # Menampilkan daftar barang setelah ditambahkan
             
         else:
             st.error("Pastikan semua input valid!")
 
-# Fungsi untuk mengurangi stok barang
+# mengurangi stok barang
 def kurangi_stok():
     if st.session_state.barang_list:  # Pastikan ada barang dalam stok
         nama = st.selectbox("Pilih nama barang yang akan dikurangi stoknya",[barang.nama for barang in st.session_state.barang_list])
@@ -64,10 +64,9 @@ def kurangi_stok():
                     break
                 else:
                     st.error(f"Barang {nama} tidak ditemukan.")
-    else:
-        st.warning("Tidak ada barang di dalam stok.")
+    
 
-# Fungsi untuk menampilkan daftar barang
+# menampilkan daftar barang
 def lihat_stok():
     if len(st.session_state.barang_list) == 0:
         st.warning("Tidak ada barang di dalam stok.")
@@ -76,7 +75,7 @@ def lihat_stok():
         for barang in st.session_state.barang_list:
             st.write(barang)
 
-# Layout aplikasi Streamlit
+# Main() apk kelompok 1
 st.title("Aplikasi Manajemen Stok Barang")
 
 menu = ["Tambah Barang", "Kurangi Stok Barang", "Lihat Daftar Stok"]
