@@ -45,7 +45,7 @@ def tambah_barang():
             st.session_state.barang_list.append(barang)
             st.success(f"Barang {nama} berhasil ditambahkan.")
             # Menampilkan daftar barang setelah ditambahkan
-            lihat_stok()
+            st.table(barang)
         else:
             st.error("Pastikan semua input valid!")
 
