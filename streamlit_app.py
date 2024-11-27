@@ -69,7 +69,7 @@ def kurangi_stok():
 
 # Fungsi untuk menampilkan daftar barang
 def lihat_stok():
-    if not st.session_state.barang_list:
+    if len(st.session_state.barang_list) == 0:
         st.warning("Tidak ada barang di dalam stok.")
     else:
         st.write("Daftar Stok Barang:")
