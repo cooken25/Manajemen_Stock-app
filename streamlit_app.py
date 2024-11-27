@@ -53,19 +53,17 @@ def tambah_barang():
 # Fungsi untuk mengurangi stok barang
 def kurangi_stok():
     if st.session_state.barang_list:  # Pastikan ada barang dalam stok
-        nama = st.selectbox("Pilih nama barang yang akan dikurangi stoknya")
+        nama = st.selectbox("Pilih nama barang yang akan dikurangi stoknya",[barang.nama for barang in st.session_state.barang_list])
         jumlah = st.number_input("Masukkan jumlah yang akan dikurangi", min_value=1)
 
         if st.button("Kurangi Stok"):
-            ditemukan = False
             for barang in st.session_state.barang_list:
                 if barang.nama == nama:
                     result = barang.kurangi_stok(jumlah)
                     st.success(result)
-                    ditemukan = True
                     break
-            if not ditemukan:
-                st.error(f"Barang {nama} tidak ditemukan.")
+                else:
+                    st.error(f"Barang {nama} tidak ditemukan.")
     else:
         st.warning("Tidak ada barang di dalam stok.")
 
