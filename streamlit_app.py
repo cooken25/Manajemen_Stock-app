@@ -57,12 +57,13 @@ def kurangi_stok():
         jumlah = st.number_input("Masukkan jumlah yang akan dikurangi", min_value=1)
 
         if st.button("Kurangi Stok"):
-            if barang.nama == nama:
-                result = barang.kurangi_stok(jumlah)
-                st.success(result)
-                break
-            else:
-                st.error(f"Barang {nama} tidak ditemukan.")
+            for barang in st.session_state.barang_list:
+                if barang.nama == nama:
+                    result = barang.kurangi_stok(jumlah)
+                    st.success(result)
+                    break
+                else:
+                    st.error(f"Barang {nama} tidak ditemukan.")
     else:
         st.warning("Tidak ada barang di dalam stok.")    
 
