@@ -77,7 +77,7 @@ def lihat_stok():
             st.write(barang)
 
 # Main() apk kelompok 1
-st.title("Aplikasi Manajemen Stok Barang")
+st.title("blue[Aplikasi Manajemen Stok Barang]")
 
 menu = ["Tambah Barang", "Kurangi Stok Barang", "Lihat Daftar Stok"]
 choice = st.sidebar.selectbox("Pilih Opsi", menu)
