@@ -83,6 +83,7 @@ menu = ["Tambah Barang", "Kurangi Stok Barang", "Lihat Daftar Stok"]
 choice = st.sidebar.selectbox("Pilih Opsi", menu)
 
 if choice == "Tambah Barang":
+    st.title("mulai"
     tambah_barang()
 elif choice == "Kurangi Stok Barang":
     kurangi_stok()
