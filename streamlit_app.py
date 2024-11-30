@@ -13,7 +13,7 @@ class Barang:
             self.stok += jumlah
             return f"{jumlah} {self.nama} berhasil ditambahkan ke stok."
         else:
-            return "Jumlah yang ditambahkan harus lebih besar dari 0."
+            print( "Jumlah yang ditambahkan harus lebih besar dari 0.")
 
     # Fungsi untuk mengurangi stok barang
     def kurangi_stok(self, jumlah):
