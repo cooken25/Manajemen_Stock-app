@@ -9,7 +9,7 @@ class Barang:
 
     # Fungsi untuk menambah stok barang
     def tambah_stok(self, jumlah):
-        if jumlah > 0:
+        if jumlah >= 1:
             self.stok += jumlah
             return f"{jumlah} {self.nama} berhasil ditambahkan ke stok."
         else:
@@ -40,7 +40,7 @@ def tambah_barang():
     stok = st.number_input("Masukkan jumlah stok barang", min_value=0)
 
     if st.button("Tambah Barang"):
-        if nama and harga > 0 and stok > 0:
+        if nama and harga > 0 and stok >= 0 :
             barang = Barang(nama, harga, stok)
             st.session_state.barang_list.append(barang)
             st.success(f"Barang {nama} berhasil ditambahkan.")
