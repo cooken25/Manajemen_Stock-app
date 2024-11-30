@@ -9,7 +9,7 @@ class Barang:
 
     # Fungsi untuk menambah stok barang
     def tambah_stok(self, jumlah):
-        if jumlah > 0:
+        if jumlah >= 1:
             self.stok += jumlah
             return f"{jumlah} {self.nama} berhasil ditambahkan ke stok."
         else:
