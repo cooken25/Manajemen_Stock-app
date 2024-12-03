@@ -1,6 +1,6 @@
 import streamlit as st
 
-# Kelas Barang untuk menyimpan informasi barang
+# Kelas Barang untuk menyimpan Objek barang
 class Barang:
     def __init__(self, nama, harga, stok):
         self.nama = nama
