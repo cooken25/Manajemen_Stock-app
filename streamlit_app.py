@@ -35,20 +35,33 @@ if "barang_list" not in st.session_state:
 
 # menambah barang
 def tambah_barang():
-    nama = st.text_input ("Masukkan nama barang")
+    nama = st.text_input("Masukkan nama barang")
     harga = st.number_input("Masukkan harga barang", min_value=0)
     stok = st.number_input("Masukkan jumlah stok barang", min_value=0)
 
     if st.button("Tambah Barang"):
-        if nama and harga > 0 and stok >= 0 :
-            barang = Barang(nama, harga, stok)
-            st.session_state.barang_list.append(barang)
-            st.success(f"Barang {nama} berhasil ditambahkan.")
-            
-            lihat_stok() # Menampilkan daftar barang setelah ditambahkan
+        if nama and harga > 0 and stok >= 0:
+            # Cek apakah barang dengan nama dan harga yang sama sudah ada
+            barang_exists = False
+            for barang in st.session_state.barang_list:
+                if barang.nama == nama and barang.harga == harga:
+                    # Jika ada, tambahkan stok barang tersebut
+                    barang.tambah_stok(stok)
+                    barang_exists = True
+                    st.success(f"Stok barang {nama} berhasil ditambahkan.")
+                    break
+
+            # Jika barang belum ada, buat barang baru
+            if not barang_exists:
+                barang = Barang(nama, harga, stok)
+                st.session_state.barang_list.append(barang)
+                st.success(f"Barang {nama} berhasil ditambahkan.")
+
+            lihat_stok()  # Menampilkan daftar barang setelah ditambahkan
             
         else:
             st.error("Pastikan semua input valid!")
+
 
 # mengurangi stok barang
 def kurangi_stok():
