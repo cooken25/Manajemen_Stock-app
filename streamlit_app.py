@@ -42,17 +42,17 @@ def tambah_barang():
     if st.button("Tambah Barang"):
         if nama and harga > 0 and stok >= 0:
             # Cek apakah barang dengan nama dan harga yang sama sudah ada
-            barang_exists = False
+            barang_cek = False
             for barang in st.session_state.barang_list:
                 if barang.nama == nama and barang.harga == harga:
                     # Jika ada, tambahkan stok barang tersebut
                     barang.tambah_stok(stok)
-                    barang_exists = True
+                    barang_cek = True
                     st.success(f"Stok barang {nama} berhasil ditambahkan.")
                     break
 
             # Jika barang belum ada, buat barang baru
-            if not barang_exists:
+            if not barang_cek:
                 barang = Barang(nama, harga, stok)
                 st.session_state.barang_list.append(barang)
                 st.success(f"Barang {nama} berhasil ditambahkan.")
